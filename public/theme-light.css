@@ -1,0 +1,25 @@
+.theme {
+	background-color: #222222;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+}
+
+.theme svg path {
+    fill: #fff;
+}
+
+
+.theme:hover {
+	background-color: #fff;
+	box-shadow: 0 0 0 rgba(0, 0, 0, 1);
+}
+.theme:hover svg path {
+	fill: #222222;
+}
+
+.change__theme[data-theme="dark"] {
+    display: block;
+}
+
+.change__theme[data-theme="light"] {
+    display: none;
+}
