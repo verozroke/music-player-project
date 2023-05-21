@@ -6,6 +6,7 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import PlayerButton from '../UI/PlayerButton.vue';
 import { usePlayerStore } from '@stores/playerStore';
 
@@ -22,6 +23,11 @@ const playerButtonHandler = () => {
     playerStore.changeIsPlaying()
 
 }
+
+
+onMounted(() => {
+    playerStore.isPlaying = false
+})
 
 
 

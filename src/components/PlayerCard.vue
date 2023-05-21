@@ -25,7 +25,6 @@ const $coverCard = ref<HTMLElement | null>(null)
 const $imageCard = ref<HTMLImageElement | null>(null)
 
 onMounted(() => {
-    
     if($imageCard.value != undefined) {
         $imageCard.value.onload = function() {
             $imageCard.value!.crossOrigin = "Anonymous"
@@ -49,13 +48,6 @@ function getColor(imageElem: HTMLImageElement, ratio: number) {
     
     data = context?.getImageData(0, 0, width, height)!
     length = data.data.length
-
-    // } catch(err) {
-    //     console.error(err)
-    //     return {
-    //         R: 0, G: 0, B: 0
-    //     }
-    // }
 
     let R, G, B;
     R = G = B = 0;

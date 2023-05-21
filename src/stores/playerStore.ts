@@ -28,7 +28,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
 
 
     // ? Current Song Info
-    const currentSong: Ref<Song> = ref({ audio: '../../public/audio/rhcp - black summer.mp3', duration: 212, album_cover: '../../public/img/rhcp.jpg' } as Song)
+    const currentSong: Ref<Song> = ref({ audio: '../../public/audio/paponu-mashinu.mp3', duration: 212, album_cover: '../../public/img/papinu-mashinu.jpg' } as Song)
     const currentTime: Ref<string> = ref('')
     const currentSongDuration: Ref<number | string> = ref(currentSong.value.duration)
 
@@ -81,5 +81,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         volumeBar,
         setVolumeBar,
     }
+}, {
+    persist: true,
 })
 
