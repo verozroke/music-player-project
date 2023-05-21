@@ -2,6 +2,9 @@
     <div 
         class="player-card"
     >
+        <div class="player-card__song-title">
+            {{ playerStore.currentSong.title }}
+        </div>
         <div class="player-card__cover" ref="$coverCard" 
             :style="{
                 transform: cardTransform,
@@ -100,6 +103,9 @@ const cardTransform = computed(() => {
 
 .player-card {
     display: flex;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: 'Barlow', sans-serif;
     width: 400px;
     min-height: 400px;
     flex-direction: column;

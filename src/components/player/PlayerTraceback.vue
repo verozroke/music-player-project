@@ -78,7 +78,7 @@ onMounted(() => {
 input[type=range]{
     z-index: 1;
     border-radius: 1em;
-     -webkit-appearance: none;
+    -webkit-appearance: none;
 }
 
 .range:hover input[type="range"]::-webkit-slider-thumb {

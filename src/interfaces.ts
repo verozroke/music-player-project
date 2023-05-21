@@ -1,5 +1,6 @@
 export interface Song {
-    audio: string
+    title: string,
+    audio_path: string
     duration: number
     album_cover: string
 }
