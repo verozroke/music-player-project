@@ -1,7 +1,12 @@
 <template>
-    <div class="wrapper">
+    <transition name="profile-layout">
+        <div @click="userStore.changeIsProfileOpen(false)" v-if="userStore.isProfileOpen" class="profile-layout">
+            <img src="https://verozroke.github.io/askatti-bugatti/img/pfps/1.png" alt="pfp">
+        </div>
+    </transition>
+    <div class="wrapper" >
         <div class="container">
-            <ProfilePicButton id="profile"/> 
+            <ProfilePicButton @click="userStore.changeIsProfileOpen(true)" id="profile"/> 
             <VolumeBarButton id="volume"/>
             <ThemeButton id="theme"/>
             <!-- <button @click="download">DOWNLOAD</button> -->
@@ -18,7 +23,10 @@ import ProfilePicButton from '@components/entities/ProfilePicButton.vue'
 import { usePlayerStore } from '../stores/playerStore'
 import PlayerCard from '@components/PlayerCard.vue'
 import axios from 'axios';
+import {useUserStore} from '@stores/userStore'
 
+
+const userStore = useUserStore()
 
 
 
@@ -27,7 +35,7 @@ import axios from 'axios';
 
 
 const playerStore = usePlayerStore()
-const audio: HTMLAudioElement = new Audio(playerStore.currentSong.audio)
+const audio: HTMLAudioElement = new Audio(playerStore.currentSong.audio_path)
 playerStore.setAudio(audio)
 
 
@@ -56,8 +64,12 @@ const download = async () => {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
+
+body {
+    overflow: hidden;
+}
 
 #theme {
     position: absolute;
@@ -78,7 +90,7 @@ const download = async () => {
 }
 
 .wrapper {
-    overflow: clip;
+    overflow: hidden;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -97,6 +109,38 @@ const download = async () => {
     width: 100%;    
 }
 
+
+
+.profile-layout {
+    img {
+		width: 100%;
+		object-fit: cover;
+		height: 100%;
+		border-radius: 50%;
+	}
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    z-index: 6;
+    width: 550px;
+    height: 100vh;
+    background-color: #242424;
+    &-enter-from {
+        transform: translateX(100vw);
+    }
+    &-enter-active {
+        transition: .3s;
+    }
+    &-leave-from {
+        transform: translateX(0);
+    }
+    &-leave-active {
+        transition: .3s;
+    }
+    &-leave-to {
+        transform: translateX(100vw);
+    }
+}   
 
 
 

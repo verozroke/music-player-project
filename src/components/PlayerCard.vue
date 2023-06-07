@@ -105,6 +105,7 @@ const cardTransform = computed(() => {
     display: flex;
     font-weight: 500;
     font-size: 16px;
+    color: #fff;
     font-family: 'Barlow', sans-serif;
     width: 400px;
     min-height: 400px;
