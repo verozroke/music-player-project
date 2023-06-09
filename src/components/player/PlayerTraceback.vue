@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import {usePlayerStore} from '@stores/playerStore'
+import { usePlayerStore } from '@stores/playerStore'
 import { onMounted, ref, watch } from 'vue';
 
 const playerStore = usePlayerStore()
@@ -78,7 +78,7 @@ onMounted(() => {
 input[type=range]{
     z-index: 1;
     border-radius: 1em;
-    -webkit-appearance: none;
+    appearance: none;
 }
 
 .range:hover input[type="range"]::-webkit-slider-thumb {
@@ -99,7 +99,7 @@ input[type=range]:focus {
     input[type='range'] {
         overflow: hidden;
         width: 200px;
-        -webkit-appearance: none;
+        appearance: none;
         background-color: #5b5b5b;
     }
     

@@ -1,8 +1,6 @@
 <template>
     <transition name="profile-layout">
-        <div @click="userStore.changeIsProfileOpen(false)" v-if="userStore.isProfileOpen" class="profile-layout">
-            <img src="https://verozroke.github.io/askatti-bugatti/img/pfps/1.png" alt="pfp">
-        </div>
+        <UserProfile/>
     </transition>
     <div class="wrapper" >
         <div class="container">
@@ -21,9 +19,10 @@ import ThemeButton from '@components/entities/ThemeButton.vue'
 import VolumeBarButton from '@components/entities/VolumeBarButton.vue'
 import ProfilePicButton from '@components/entities/ProfilePicButton.vue'
 import { usePlayerStore } from '../stores/playerStore'
-import PlayerCard from '@components/PlayerCard.vue'
+import PlayerCard from '@components/player/PlayerCard.vue'
 import axios from 'axios';
 import {useUserStore} from '@stores/userStore'
+import UserProfile from '@components/user-profile/UserProfile.vue'
 
 
 const userStore = useUserStore()
@@ -112,19 +111,10 @@ body {
 
 
 .profile-layout {
-    img {
-		width: 100%;
-		object-fit: cover;
-		height: 100%;
-		border-radius: 50%;
-	}
     overflow: hidden;
     position: absolute;
     right: 0;
     z-index: 6;
-    width: 550px;
-    height: 100vh;
-    background-color: #242424;
     &-enter-from {
         transform: translateX(100vw);
     }

@@ -7,11 +7,11 @@
 
 import { defineStore } from 'pinia'
 import { Ref, ref } from 'vue'
-import { Song } from '@/interfaces'
+import { ISong } from '@/interfaces'
 
 
 
-const mockas: Song[] = [
+const mockas: ISong[] = [
     { title: 'ПОШЛАЯ МОЛЛИ - Папину Машину', audio_path: '/audio/paponu-mashinu.mp3', duration: 212, album_cover: '/img/papinu-mashinu.jpg' },
     { title: 'Red Hot Chilli Peppers - Black Summer', audio_path: '/audio/rhcp - black summer.mp3', duration: 0, album_cover: '/img/rhcp.jpg' },
     { title: '', audio_path: '/audio/', duration: 0, album_cover: '' },
@@ -28,7 +28,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
 
 
     // ? Current Song Info
-    const currentSong: Ref<Song> = ref({ title: 'ПОШЛАЯ МОЛЛИ - Папину Машину', audio_path: '/audio/paponu-mashinu.mp3', duration: 212, album_cover: '/img/papinu-mashinu.jpg' } as Song)
+    const currentSong: Ref<ISong> = ref({ title: 'ПОШЛАЯ МОЛЛИ - Папину Машину', audio_path: '/audio/paponu-mashinu.mp3', duration: 212, album_cover: '/img/papinu-mashinu.jpg' } as ISong)
     const currentTime: Ref<string> = ref('')
     const currentSongDuration: Ref<number | string> = ref(currentSong.value.duration)
 
@@ -47,7 +47,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         audio.value = audiopass
     }
 
-    const setCurrentSong = (value: Song) => {
+    const setCurrentSong = (value: ISong) => {
         currentSong.value = value
         currentSongDuration.value = value.duration
     }
