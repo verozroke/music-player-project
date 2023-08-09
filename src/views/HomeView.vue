@@ -14,26 +14,34 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
+// Components
+
+import UserProfile from '@components/user-profile/UserProfile.vue'
+import PlayerCard from '@components/player/PlayerCard.vue'
 import ThemeButton from '@components/entities/ThemeButton.vue'
 import VolumeBarButton from '@components/entities/VolumeBarButton.vue'
 import ProfilePicButton from '@components/entities/ProfilePicButton.vue'
-import { usePlayerStore } from '../stores/playerStore'
-import PlayerCard from '@components/player/PlayerCard.vue'
+
+
+// libs
 import axios from 'axios';
-import {useUserStore} from '@stores/userStore'
-import UserProfile from '@components/user-profile/UserProfile.vue'
+import { onMounted, watch } from 'vue';
+
+
+// stores
+import { usePlaylistStore } from '@stores/playlistStore'
+import { usePlayerStore } from '../stores/playerStore'
+import { useUserStore } from '@stores/userStore'
+import { useLifecycleStore } from '@stores/lifecycleStore'
+
 
 
 const userStore = useUserStore()
-
-
-
-
-
-
-
+const playlistStore = usePlaylistStore() 
 const playerStore = usePlayerStore()
+const lifecycleStore = useLifecycleStore()
+
+
 const audio: HTMLAudioElement = new Audio(playerStore.currentSong.audio_path)
 playerStore.setAudio(audio)
 
@@ -42,7 +50,7 @@ playerStore.setAudio(audio)
 
 
 watch(() => playerStore.volumeBar, () => {    
-    audio.volume = playerStore.volumeBar / 100
+    playerStore.audio.volume = playerStore.volumeBar / 100
 })
 
 // Downloading songs same things
@@ -60,6 +68,11 @@ const download = async () => {
 }
 
 
+onMounted(() => {
+    lifecycleStore.changeIsLoading()
+})
+
+
 
 </script>
 
@@ -68,6 +81,7 @@ const download = async () => {
 
 body {
     overflow: hidden;
+    transition: .2s;
 }
 
 #theme {

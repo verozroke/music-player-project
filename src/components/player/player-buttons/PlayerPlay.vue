@@ -13,7 +13,6 @@ import { usePlayerStore } from '@stores/playerStore';
 const playerStore = usePlayerStore();
 
 const playerButtonHandler = () => {
-    
     if(playerStore.isPlaying) {
         playerStore.audio.pause()
         playerStore.changeIsPlaying()  

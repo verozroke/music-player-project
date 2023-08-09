@@ -23,13 +23,11 @@ const isMouseDown = ref(false)
 
 
 const mouseDownHandler = () => {
-    console.log('mousedown')
     playerStore.audio.pause()
     isMouseDown.value = true
 }
 
 const mouseUpHandler = () => {
-    console.log('mouseup')
     playerStore.audio.play()
     isMouseDown.value = false
     playerStore.isPlaying = true
@@ -69,6 +67,26 @@ onMounted(() => {
         }
     })
 })
+
+watch(playerStore.currentSong, () => {
+    playerStore.audio.removeEventListener("timeupdate", () => {
+        console.log('removed')
+    })
+})
+
+
+watch(() => playerStore.audio, () => {
+    if(playerStore.currentSongDuration !== undefined) {
+        playerStore.setCurrentSongDuration(formatTimeToString(playerStore.currentSongDuration))        
+    }
+    playerStore.audio.addEventListener("timeupdate", (e) => {
+        if(!isMouseDown.value) {
+            rangeLevel.value = Math.floor((e.target as HTMLAudioElement).currentTime)
+            playerStore.setCurrentTime(formatTimeToString(Math.floor((e.target as HTMLAudioElement).currentTime)))
+        }
+    })
+})
+
 
 
 </script>

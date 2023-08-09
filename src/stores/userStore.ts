@@ -11,7 +11,7 @@ export const useUserStore = defineStore('userStore', () => {
         email: 'verozroke@gmail.com',
         favourite_songs: [] as ISong[],
         playlists: [] as IPlaylist[]
-    } as IUser)
+    })
 
     const changeIsProfileOpen = (value: boolean): void => {
         isProfileOpen.value = value;

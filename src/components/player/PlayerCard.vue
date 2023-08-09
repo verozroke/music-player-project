@@ -28,6 +28,7 @@ const $coverCard = ref<HTMLElement | null>(null)
 const $imageCard = ref<HTMLImageElement | null>(null)
 
 onMounted(() => {
+
     if($imageCard.value != undefined) {
         $imageCard.value.onload = function() {
             $imageCard.value!.crossOrigin = "Anonymous"

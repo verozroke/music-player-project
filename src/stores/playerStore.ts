@@ -28,7 +28,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
 
 
     // ? Current Song Info
-    const currentSong: Ref<ISong> = ref({ title: 'ПОШЛАЯ МОЛЛИ - Папину Машину', audio_path: '/audio/paponu-mashinu.mp3', duration: 212, album_cover: '/img/papinu-mashinu.jpg' } as ISong)
+    const currentSong: Ref<ISong> = ref({ title: 'ПОШЛАЯ МОЛЛИ - Папину Машину', audio_path: '/audio/paponu-mashinu.mp3', duration: 212, album_cover: '/img/papinu-mashinu.jpg' })
     const currentTime: Ref<string> = ref('')
     const currentSongDuration: Ref<number | string> = ref(currentSong.value.duration)
 
@@ -37,9 +37,24 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const volumeBar: Ref<number> = ref(0)
 
 
+    // Buttons status
+
+    const isRetry: Ref<boolean> = ref(false)
+    const isShuffled: Ref<boolean> = ref(false)
+
+
     // ! Boolean changers
     const changeIsPlaying = () => {
         isPlaying.value = !isPlaying.value
+    }
+
+    const changeIsRetry = () => {
+        isRetry.value = !isRetry.value
+
+    }
+
+    const changeIsShuffled = () => {
+        isShuffled.value = !isShuffled.value
     }
 
     // ! Setters
@@ -80,6 +95,12 @@ export const usePlayerStore = defineStore('playerStore', () => {
 
         volumeBar,
         setVolumeBar,
+
+        isRetry,
+        changeIsRetry,
+
+        isShuffled,
+        changeIsShuffled
     }
 }, {
     persist: true,

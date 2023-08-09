@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Ref, ref, watch } from 'vue';
+import { Ref, onMounted, ref, watch } from 'vue';
 import { usePlayerStore } from '../../stores/playerStore'
 
 const isActive: Ref<boolean> = ref(false)
@@ -27,7 +27,10 @@ const playerStore = usePlayerStore()
 const volumeBar: Ref<number> = ref(0)
 
 
-
+onMounted(() => {
+	volumeBar.value = 50
+	playerStore.audio.volume = 50 / 100
+})
 
 watch(volumeBar, () => {
     playerStore.setVolumeBar(volumeBar.value)

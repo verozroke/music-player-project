@@ -1,5 +1,10 @@
 export interface IPlaylist {
-
+    name: string
+    type: string
+    songs: ISong[]
+    created_at: number
+    playlist_cover?: string
+    author: IUser
 }
 
 
