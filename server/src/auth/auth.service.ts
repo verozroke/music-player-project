@@ -1,13 +1,16 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import { AuthDto } from './dto/auth.dto';
+import { AuthSingupDto, AuthSinginDto } from './dto/auth.dto';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt'
+import { jwtSecret } from 'src/utils/constants';
+import { Request, Response } from 'express';
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService, private jwt: JwtService) { }
 
-  async signup(dto: AuthDto) {
+  async signup(dto: AuthSingupDto) {
     const { email, name, password } = dto
 
     const foundUser = await this.prisma.user.findUnique({ where: { email: email } })
@@ -30,7 +33,7 @@ export class AuthService {
       message: 'signup was successful'
     }
   }
-  async signin(dto: AuthDto) {
+  async signin(dto: AuthSinginDto, req: Request, res: Response) {
     const { email, password } = dto
 
     const foundUser = await this.prisma.user.findUnique({ where: { email: email } })
@@ -49,11 +52,22 @@ export class AuthService {
     }
 
 
-    // TODO: sign jwt and return token
-    return '';
+    const token = await this.signToken({ id: foundUser.id, email: foundUser.email })
+
+    if (!token) {
+      throw new ForbiddenException()
+    }
+
+    res.cookie('token', token)
+
+
+    return res.send({ message: 'Signed in successfully' });
   }
-  async signout() {
-    return '';
+  async signout(req: Request, res: Response) {
+
+    res.clearCookie('token')
+
+    return res.send({ message: 'Signed out successfully' })
   }
 
 
@@ -67,5 +81,11 @@ export class AuthService {
 
   async comparePasswords(args: { password: string, hash: string }) {
     return await bcrypt.compare(args.password, args.hash)
+  }
+
+  async signToken(args: { id: string, email: string }) {
+    const payload = args
+
+    return this.jwt.signAsync(payload, { secret: jwtSecret })
   }
 }
