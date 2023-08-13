@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { useLifecycleStore } from '@stores/lifecycleStore'
-const lifecycleStore = useLifecycleStore()
 
 </script>
 
 <template>
-  <div v-if="lifecycleStore.isLoading">Loading</div>
-  <RouterView/>
+  <RouterView />
 </template>
 
 <style lang="scss">

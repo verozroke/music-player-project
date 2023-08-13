@@ -30,7 +30,7 @@ export class AuthService {
     })
 
     return {
-      message: 'signup was successful'
+      message: 'Signed up successfully'
     }
   }
   async signin(dto: AuthSinginDto, req: Request, res: Response) {

@@ -16,4 +16,7 @@ model User {
   hashedPassword String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
+  // FIXME: узнать как референсить тайпы в призме, чтоб здеьс указывался конкретный обьект а не просто Json
+  favouriteSongIds Json
+  playlistIds Json
 }

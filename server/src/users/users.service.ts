@@ -26,6 +26,19 @@ export class UsersService {
     return { user }
   }
 
+  async getUserByHash(req: Request) {
+
+    const decodedUser = req.user as { id: string, email: string }
+    const user = await this.prisma.user.findUnique({ where: { id: decodedUser.id } })
+    if (!user) {
+      throw new NotFoundException()
+    }
+
+    delete user.hashedPassword
+
+    return { user }
+  }
+
 
   async getUsers() {
     return await this.prisma.user.findMany({
